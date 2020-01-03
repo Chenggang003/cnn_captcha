@@ -11,13 +11,13 @@
   "image_height": 60,
   "max_captcha": 4,
   "image_suffix": "png",
-  "char_set": "0123456789abcdefghijklmnopqrstuvwxyz",
+  "char_set": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
   "use_labels_json_file": false,
   "remote_url": "http://127.0.0.1:6100/captcha/",
   "cycle_stop": 20000,
   "acc_stop": 0.99,
   "cycle_save": 500,
-  "enable_gpu": 1,
+  "enable_gpu": 0,
   "train_batch_size": 128,
   "test_batch_size": 100
 }

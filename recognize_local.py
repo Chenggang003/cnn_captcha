@@ -1,10 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 """
-使用自建的接口识别来自网络的验证码
+使用自建的接口识别来自本地目录的验证码
 需要配置参数：
-    remote_url = "https://www.xxxxxxx.com/getImg"  验证码链接地址
-    rec_times = 1  识别的次数
+    test_path = "image/test/0401_15440848576253345.png"
 """
 import datetime
 import requests

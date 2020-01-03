@@ -107,7 +107,7 @@ use CNN recognize captcha by tensorflow.
 | Java | iCaptcha |  | ![效果1](./readme_image/iCaptcha.jpg) |  
 | Java | SkewPassImage |  | ![效果1](./readme_image/SkewPassImage.jpg) |  
 | Java | Cage |  | ![效果1](./readme_image/Cage1.jpg) ![效果2](./readme_image/Cage2.jpg) |
-| Python | captcha | [例子](https://github.com/nickliqian/cnn_captcha/blob/master/gen_image/gen_app_by_captcha.py) | ![py_Captcha](./readme_image/py_Captcha-1.jpg) |
+| Python | captcha | [例子](https://github.com/nickliqian/cnn_captcha/blob/master/gen_image/gen_image_by_captcha.py) | ![py_Captcha](./readme_image/py_Captcha-1.jpg) |
 | Python | pycapt | [例子](https://github.com/aboutmydreams/pycapt) | ![pycapt](https://github.com/aboutmydreams/pycapt/raw/master/img/do4.png) |
 | PHP | Gregwar/Captcha | [文档](https://github.com/Gregwar/Captcha) |  |
 | PHP | mewebstudio/captcha | [文档](https://github.com/mewebstudio/captcha) |  |
@@ -117,7 +117,7 @@ use CNN recognize captcha by tensorflow.
 | 序号 | 文件名称 | 说明 |
 | ------ | ------ | ------ |
 | 1 | `conf/` | 配置文件目录 |
-| 2 | `app/` | 数据集目录 |
+| 2 | `image/` | 数据集目录 |
 | 3 | `model/` | 模型文件目录 |
 | 4 | `cnnlib/` | 封装CNN的相关代码目录 |
 ### 1.2.2 训练模型
@@ -127,7 +127,7 @@ use CNN recognize captcha by tensorflow.
 | 2 | network.py | cnn网络基类 |
 | 3 | train_model.py | 训练模型 |
 | 4 | test_batch.py | 批量验证 |
-| 5 | gen_image/gen_app_by_captcha.py | 生成验证码的脚本 |
+| 5 | gen_image/gen_image_by_captcha.py | 生成验证码的脚本 |
 | 6 | gen_image/collect_labels.py | 用于统计验证码标签（常用于中文验证码） |
 
 ### 1.2.3 web接口
@@ -159,14 +159,14 @@ pip install -r requirements.txt
 
 # 2 如何使用
 ## 2.1 数据集
-原始数据集可以存放在`./app/origin`目录中。  
+原始数据集可以存放在`./image/origin`目录中。  
 为了便于处理，图片最好以`2e8j_17322d3d4226f0b5c5a71d797d2ba7f7.jpg`格式命名（标签_序列号.后缀）。 
   
-如果你没有训练集，你可以使用`gen_app_by_captcha.py`文件生成训练集文件。
+如果你没有训练集，你可以使用`gen_image_by_captcha.py`文件生成训练集文件。
 生成之前你需要修改相关配置`conf/captcha_config.json`（路径、文件后缀、字符集等）。
 ```
 {
-  "root_dir": "app/origin/",  # 验证码保存路径
+  "root_dir": "image/origin/",  # 验证码保存路径
   "image_suffix": "png",         # 验证码图片后缀
   "characters": "0123456789",    # 生成验证码的可选字符
   "count": 1000,                 # 生成验证码的图片数量
@@ -180,13 +180,13 @@ pip install -r requirements.txt
 创建一个新项目前，需要自行**修改相关配置文件**`conf/app_config.json`。
 ```
 {
-  "origin_image_dir": "app/origin/",  # 原始文件
-  "new_image_dir": "app/new_train/",  # 新的训练样本
-  "train_image_dir": "app/train/",    # 训练集
-  "test_image_dir": "app/test/",      # 测试集
-  "api_image_dir": "app/api/",        # api接收的图片储存路径
-  "online_image_dir": "app/online/",  # 从验证码url获取的图片的储存路径
-  "local_image_dir": "app/local/",    # 本地保存图片的路径
+  "origin_image_dir": "image/origin/",  # 原始文件
+  "new_image_dir": "image/new_train/",  # 新的训练样本
+  "train_image_dir": "image/train/",    # 训练集
+  "test_image_dir": "image/test/",      # 测试集
+  "api_image_dir": "image/api/",        # api接收的图片储存路径
+  "online_image_dir": "image/online/",  # 从验证码url获取的图片的储存路径
+  "local_image_dir": "image/local/",    # 本地保存图片的路径
   "model_save_dir": "model/",            # 从验证码url获取的图片的储存路径
   "image_width": 100,                    # 图片宽度
   "image_height": 60,                    # 图片高度
@@ -218,7 +218,7 @@ python3 verify_and_split_data.py
 ```
 一般会有类似下面的提示
 ```
->>> 开始校验目录：[app/origin/]
+>>> 开始校验目录：[image/origin/]
 开始校验原始图片集
 原始集共有图片: 1001张
 ====以下1张图片有异常====
@@ -228,8 +228,8 @@ python3 verify_and_split_data.py
 共分配1000张图片到训练集和测试集，其中1张为异常留在原始目录
 测试集数量为：50
 训练集数量为：950
->>> 开始校验目录：[app/new_train/]
-【警告】找不到目录app/new_train/，即将创建
+>>> 开始校验目录：[image/new_train/]
+【警告】找不到目录image/new_train/，即将创建
 开始校验原始图片集
 原始集共有图片: 0张
 ====以下0张图片有异常====
@@ -243,7 +243,7 @@ python3 verify_and_split_data.py
 程序会同时校验和分割`origin_image_dir`和`new_image_dir`两个目录中的图片；后续有了更多的样本，可以把样本放在`new_image_dir`目录中再次执行`verify_and_split_data`。  
 程序会把无效的文件留在原文件夹。  
 
-此外，当你有新的样本需要一起训练，可以放在`app/new`目录下，再次运行`python3 verify_and_split_data.py`即可。  
+此外，当你有新的样本需要一起训练，可以放在`image/new`目录下，再次运行`python3 verify_and_split_data.py`即可。  
 需要注意的是，如果新的样本中有新增的标签，你需要把新的标签增加到`char_set`配置中或者`labels.json`文件中。 
  
 ## 2.4 训练模型

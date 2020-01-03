@@ -1,10 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 """
-使用自建的接口识别来自网络的验证码
+压力测试识别耗时和请求响应耗时
 需要配置参数：
-    remote_url = "https://www.xxxxxxx.com/getImg"  验证码链接地址
-    rec_times = 1  识别的次数
+    test_file = "app/test/0001_15430304076164024.png"
 """
 import datetime
 import requests
