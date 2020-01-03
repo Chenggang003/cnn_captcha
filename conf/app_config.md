@@ -23,7 +23,10 @@ use_labels_json_file = False
 ```
 ## 验证码字符相关参数
 ```
+char_set = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+char_set = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 char_set = "0123456789abcdefghijklmnopqrstuvwxyz"
+char_set = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 char_set = "abcdefghijklmnopqrstuvwxyz"
 char_set = "0123456789"
 ```
