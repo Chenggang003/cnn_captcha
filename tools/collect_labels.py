@@ -7,7 +7,7 @@ import os
 import json
 
 
-image_dir = "../sample/origin"
+image_dir = "../image/origin"
 image_list = os.listdir(image_dir)
 
 labels = set()

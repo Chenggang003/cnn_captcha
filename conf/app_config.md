@@ -1,10 +1,10 @@
 ## 图片文件夹
 ```
-origin_image_dir = "./sample/origin/"  # 原始文件
-train_image_dir = "./sample/train/"   # 训练集
-test_image_dir = "./sample/test/"   # 测试集
-api_image_dir = "./sample/api/"   # api接收的图片储存路径
-online_image_dir = "./sample/online/"  # 从验证码url获取的图片的储存路径
+origin_image_dir = "./image/origin/"  # 原始文件
+train_image_dir = "./image/train/"   # 训练集
+test_image_dir = "./image/test/"   # 测试集
+api_image_dir = "./image/api/"   # api接收的图片储存路径
+online_image_dir = "./image/online/"  # 从验证码url获取的图片的储存路径
 ```
 ## 模型文件夹
 ```

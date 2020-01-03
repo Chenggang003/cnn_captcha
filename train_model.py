@@ -238,26 +238,26 @@ class TrainModel(CNN):
 
 
 def main():
-    with open("conf/sample_config.json", "r") as f:
-        sample_conf = json.load(f)
+    with open("conf/app_config.json", "r") as f:
+        app_conf = json.load(f)
 
-    train_image_dir = sample_conf["train_image_dir"]
-    verify_image_dir = sample_conf["test_image_dir"]
-    model_save_dir = sample_conf["model_save_dir"]
-    cycle_stop = sample_conf["cycle_stop"]
-    acc_stop = sample_conf["acc_stop"]
-    cycle_save = sample_conf["cycle_save"]
-    enable_gpu = sample_conf["enable_gpu"]
-    image_suffix = sample_conf['image_suffix']
-    use_labels_json_file = sample_conf['use_labels_json_file']
-    train_batch_size = sample_conf['train_batch_size']
-    test_batch_size = sample_conf['test_batch_size']
+    train_image_dir = app_conf["train_image_dir"]
+    verify_image_dir = app_conf["test_image_dir"]
+    model_save_dir = app_conf["model_save_dir"]
+    cycle_stop = app_conf["cycle_stop"]
+    acc_stop = app_conf["acc_stop"]
+    cycle_save = app_conf["cycle_save"]
+    enable_gpu = app_conf["enable_gpu"]
+    image_suffix = app_conf['image_suffix']
+    use_labels_json_file = app_conf['use_labels_json_file']
+    train_batch_size = app_conf['train_batch_size']
+    test_batch_size = app_conf['test_batch_size']
 
     if use_labels_json_file:
         with open("tools/labels.json", "r") as f:
             char_set = f.read().strip()
     else:
-        char_set = sample_conf["char_set"]
+        char_set = app_conf["char_set"]
 
     if not enable_gpu:
         # 设置以下环境变量可开启CPU识别

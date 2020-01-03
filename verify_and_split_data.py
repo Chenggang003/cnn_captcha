@@ -125,19 +125,19 @@ def split(origin_dir, train_dir, test_dir, bad_imgs):
 
 
 def main():
-    with open("conf/sample_config.json", "r") as f:
-        sample_conf = json.load(f)
+    with open("conf/app_config.json", "r") as f:
+        app_conf = json.load(f)
 
     # 图片路径
-    origin_dir = sample_conf["origin_image_dir"]
-    new_dir = sample_conf["new_image_dir"]
-    train_dir = sample_conf["train_image_dir"]
-    test_dir = sample_conf["test_image_dir"]
+    origin_dir = app_conf["origin_image_dir"]
+    new_dir = app_conf["new_image_dir"]
+    train_dir = app_conf["train_image_dir"]
+    test_dir = app_conf["test_image_dir"]
     # 图片尺寸
-    real_width = sample_conf["image_width"]
-    real_height = sample_conf["image_height"]
+    real_width = app_conf["image_width"]
+    real_height = app_conf["image_height"]
     # 图片后缀
-    image_suffix = sample_conf["image_suffix"]
+    image_suffix = app_conf["image_suffix"]
 
     for image_dir in [origin_dir, new_dir]:
         print(">>> 开始校验目录：[{}]".format(image_dir))

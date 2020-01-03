@@ -61,7 +61,7 @@ class Recognizer(CNN):
 
 
 def main():
-    with open("conf/sample_config.json", "r", encoding="utf-8") as f:
+    with open("conf/app_config.json", "r", encoding="utf-8") as f:
         sample_conf = json.load(f)
     image_height = sample_conf["image_height"]
     image_width = sample_conf["image_width"]

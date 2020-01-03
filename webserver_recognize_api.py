@@ -20,22 +20,22 @@ from PIL import Image
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-with open("conf/sample_config.json", "r") as f:
-    sample_conf = json.load(f)
+with open("conf/app_config.json", "r") as f:
+    app_conf = json.load(f)
 # 配置参数
-image_height = sample_conf["image_height"]
-image_width = sample_conf["image_width"]
-max_captcha = sample_conf["max_captcha"]
-api_image_dir = sample_conf["api_image_dir"]
-model_save_dir = sample_conf["model_save_dir"]
-image_suffix = sample_conf["image_suffix"]  # 文件后缀
-use_labels_json_file = sample_conf['use_labels_json_file']
+image_height = app_conf["image_height"]
+image_width = app_conf["image_width"]
+max_captcha = app_conf["max_captcha"]
+api_image_dir = app_conf["api_image_dir"]
+model_save_dir = app_conf["model_save_dir"]
+image_suffix = app_conf["image_suffix"]  # 文件后缀
+use_labels_json_file = app_conf['use_labels_json_file']
 
 if use_labels_json_file:
     with open("tools/labels.json", "r") as f:
         char_set = f.read().strip()
 else:
-    char_set = sample_conf["char_set"]
+    char_set = app_conf["char_set"]
 
 # Flask对象
 app = Flask(__name__)

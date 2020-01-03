@@ -95,19 +95,19 @@ class TestBatch(CNN):
 
 
 def main():
-    with open("conf/sample_config.json", "r") as f:
-        sample_conf = json.load(f)
+    with open("conf/app_config.json", "r") as f:
+        app_conf = json.load(f)
 
-    test_image_dir = sample_conf["test_image_dir"]
-    model_save_dir = sample_conf["model_save_dir"]
+    test_image_dir = app_conf["test_image_dir"]
+    model_save_dir = app_conf["model_save_dir"]
 
-    use_labels_json_file = sample_conf['use_labels_json_file']
+    use_labels_json_file = app_conf['use_labels_json_file']
 
     if use_labels_json_file:
         with open("tools/labels.json", "r") as f:
             char_set = f.read().strip()
     else:
-        char_set = sample_conf["char_set"]
+        char_set = app_conf["char_set"]
 
     total = 100
     tb = TestBatch(test_image_dir, char_set, model_save_dir, total)

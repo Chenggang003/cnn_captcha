@@ -76,8 +76,8 @@ def correction(fail_path, pass_path, correction_times, remote_url):
 
 
 def main():
-    fail_path = "./sample/fail_sample/"
-    pass_path = "./sample/pass_sample/"
+    fail_path = "./image/fail_image/"
+    pass_path = "./image/pass_image/"
     correction_times = 10
     remote_url = "https://www.xxxxxxx.com/getImg"
 

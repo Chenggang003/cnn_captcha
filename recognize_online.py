@@ -55,13 +55,13 @@ def recognize_captcha(remote_url, rec_times, save_path, image_suffix):
 
 
 def main():
-    with open("conf/sample_config.json", "r") as f:
-        sample_conf = json.load(f)
+    with open("conf/app_config.json", "r") as f:
+        app_conf = json.load(f)
 
     # 配置相关参数
-    save_path = sample_conf["online_image_dir"]  # 下载图片保存的地址
-    remote_url = sample_conf["remote_url"]  # 网络验证码地址
-    image_suffix = sample_conf["image_suffix"]  # 文件后缀
+    save_path = app_conf["online_image_dir"]  # 下载图片保存的地址
+    remote_url = app_conf["remote_url"]  # 网络验证码地址
+    image_suffix = app_conf["image_suffix"]  # 文件后缀
     rec_times = 1
     recognize_captcha(remote_url, rec_times, save_path, image_suffix)
 
