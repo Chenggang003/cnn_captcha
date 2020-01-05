@@ -30,7 +30,7 @@ def correction(fail_path, pass_path, correction_times, remote_url):
 
         # 识别
         s = time.time()
-        url = "http://127.0.0.1:6000/b"
+        url = "http://127.0.0.1:6000/recognize"
         files = {'image_file': ('captcha.jpg', BytesIO(response.content), 'application')}
         r = requests.post(url=url, files=files)
         e = time.time()

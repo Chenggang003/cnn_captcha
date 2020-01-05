@@ -3,7 +3,7 @@
 识别图像的类，为了快速进行多次识别可以调用此类下面的方法：
 R = Recognizer(image_height, image_width, max_captcha)
 for i in range(10):
-    r_img = Image.open(str(i) + ".jpg")
+    r_img = Image.open(str(i) + ".png")
     t = R.rec_image(r_img)
 简单的图片每张基本上可以达到毫秒级的识别速度
 """
@@ -61,15 +61,15 @@ class Recognizer(CNN):
 
 
 def main():
-    with open("conf/app_config.json", "r", encoding="utf-8") as f:
-        sample_conf = json.load(f)
-    image_height = sample_conf["image_height"]
-    image_width = sample_conf["image_width"]
-    max_captcha = sample_conf["max_captcha"]
-    char_set = sample_conf["char_set"]
-    model_save_dir = sample_conf["model_save_dir"]
+    with open("conf/app_config.json", "r") as f:
+        app_conf = json.load(f)
+    image_height = app_conf["image_height"]
+    image_width = app_conf["image_width"]
+    max_captcha = app_conf["max_captcha"]
+    char_set = app_conf["char_set"]
+    model_save_dir = app_conf["model_save_dir"]
     R = Recognizer(image_height, image_width, max_captcha, char_set, model_save_dir)
-    r_img = Image.open("./sample/test/2b3n_6915e26c67a52bc0e4e13d216eb62b37.jpg")
+    r_img = Image.open("./image/test/2_15782280921880.png")
     t = R.rec_image(r_img)
     print(t)
 

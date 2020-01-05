@@ -54,7 +54,7 @@ def response_headers(content):
     return resp
 
 
-@app.route('/b', methods=['POST'])
+@app.route('/recognize', methods=['POST'])
 def up_image():
     if request.method == 'POST' and request.files.get('image_file'):
         timec = str(time.time()).replace(".", "")
