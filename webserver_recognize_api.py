@@ -3,8 +3,8 @@
 构建flask接口服务
 接收 files={'image_file': ('captcha.jpg', BytesIO(bytes), 'application')} 参数识别验证码
 需要配置参数：
-    image_height = 40
-    image_width = 80
+    image_height = 60
+    image_width = 100
     max_captcha = 4
 """
 import json
