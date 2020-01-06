@@ -11,7 +11,7 @@ import json
 from io import BytesIO
 import os
 from cnnlib.recognition_object import Recognizer
-
+import base64
 import time
 from flask import Flask, request, jsonify, Response
 from PIL import Image
@@ -44,6 +44,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # 生成识别对象，需要配置参数
 R = Recognizer(image_height, image_width, max_captcha, char_set, model_save_dir)
 
+
 # 如果你需要使用多个模型，可以参照原有的例子配置路由和编写逻辑
 # Q = Recognizer(image_height, image_width, max_captcha, char_set, model_save_dir)
 
@@ -54,15 +55,15 @@ def response_headers(content):
     return resp
 
 
-@app.route('/recognize', methods=['POST'])
-def up_image():
-    if request.method == 'POST' and request.files.get('image_file'):
+@app.route("/recognize/base64", methods=['POST'])
+def recognize_base64():
+    if request.method == 'POST':
+        get_data = json.loads(request.get_data(as_text=True))
         timec = str(time.time()).replace(".", "")
-        file = request.files.get('image_file')
-        img = file.read()
-        img = BytesIO(img)
-        img = Image.open(img, mode="r")
-        # username = request.form.get("name")
+        img_b64encode = get_data['image_base64']
+        img_b64decode = base64.b64decode(img_b64encode)
+        image = BytesIO(img_b64decode)
+        img = Image.open(image, mode="r")
         print("接收图片尺寸: {}".format(img.size))
         s = time.time()
         value = R.rec_image(img)
@@ -74,7 +75,38 @@ def up_image():
         file_path = os.path.join(api_image_dir + file_name)
         img.save(file_path)
         result = {
-            'time': timec,   # 时间戳
+            'time': timec,  # 时间戳
+            'value': value,  # 预测的结果
+            'speed_time(ms)': int((e - s) * 1000)  # 识别耗费的时间
+        }
+        img.close()
+        return jsonify(result)
+    else:
+        content = json.dumps({"error_code": "1001"})
+        resp = response_headers(content)
+        return resp
+
+
+@app.route('/recognize/file', methods=['POST'])
+def recognize_file():
+    if request.method == 'POST' and request.path.get('image_file'):
+        timec = str(time.time()).replace(".", "")
+        file = request.files.get('image_file')
+        img = file.read()
+        img = BytesIO(img)
+        img = Image.open(img, mode="r")
+        print("接收图片尺寸: {}".format(img.size))
+        s = time.time()
+        value = R.rec_image(img)
+        e = time.time()
+        print("识别结果: {}".format(value))
+        # 保存图片
+        print("保存图片： {}{}_{}.{}".format(api_image_dir, value, timec, image_suffix))
+        file_name = "{}_{}.{}".format(value, timec, image_suffix)
+        file_path = os.path.join(api_image_dir + file_name)
+        img.save(file_path)
+        result = {
+            'time': timec,  # 时间戳
             'value': value,  # 预测的结果
             'speed_time(ms)': int((e - s) * 1000)  # 识别耗费的时间
         }

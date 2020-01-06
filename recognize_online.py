@@ -35,7 +35,7 @@ def recognize_captcha(remote_url, rec_times, save_path, image_suffix):
 
         # 识别
         s = time.time()
-        url = "http://127.0.0.1:6000/recognize"
+        url = "http://127.0.0.1:6000/recognize/file"
         files = {'image_file': (image_file_name, BytesIO(response.content), 'application')}
         r = requests.post(url=url, files=files)
         e = time.time()
