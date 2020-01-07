@@ -1,9 +1,0 @@
-{
-  "root_dir": "image/origin/",
-  "image_suffix": "png",
-  "characters": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-  "count": 2000,
-  "char_count": 4,
-  "width": 100,
-  "height": 60
-}

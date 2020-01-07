@@ -70,10 +70,10 @@ def recognize_base64():
         e = time.time()
         print("识别结果: {}".format(value))
         # 保存图片
-        print("保存图片： {}{}_{}.{}".format(api_image_dir, value, timec, image_suffix))
-        file_name = "{}_{}.{}".format(value, timec, image_suffix)
-        file_path = os.path.join(api_image_dir + file_name)
-        img.save(file_path)
+        # print("保存图片： {}{}_{}.{}".format(api_image_dir, value, timec, image_suffix))
+        # file_name = "{}_{}.{}".format(value, timec, image_suffix)
+        # file_path = os.path.join(api_image_dir + file_name)
+        # img.save(file_path)
         result = {
             'time': timec,  # 时间戳
             'value': value,  # 预测的结果
@@ -101,10 +101,10 @@ def recognize_file():
         e = time.time()
         print("识别结果: {}".format(value))
         # 保存图片
-        print("保存图片： {}{}_{}.{}".format(api_image_dir, value, timec, image_suffix))
-        file_name = "{}_{}.{}".format(value, timec, image_suffix)
-        file_path = os.path.join(api_image_dir + file_name)
-        img.save(file_path)
+        # print("保存图片： {}{}_{}.{}".format(api_image_dir, value, timec, image_suffix))
+        # file_name = "{}_{}.{}".format(value, timec, image_suffix)
+        # file_path = os.path.join(api_image_dir + file_name)
+        # img.save(file_path)
         result = {
             'time': timec,  # 时间戳
             'value': value,  # 预测的结果
