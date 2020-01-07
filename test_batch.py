@@ -15,17 +15,17 @@ class TestError(Exception):
 
 
 class TestBatch(CNN):
-    def __init__(self, img_path, char_set, model_save_dir, test_batch_size):
+    def __init__(self, test_image_dir, char_set, model_save_dir, test_batch_size):
         # 模型路径
         self.model_save_dir = model_save_dir
         # 打乱文件顺序
-        self.img_path = img_path
-        self.img_list = os.listdir(img_path)
+        self.test_image_dir = test_image_dir
+        self.test_image_list = os.listdir(test_image_dir)
         random.seed(time.time())
-        random.shuffle(self.img_list)
+        random.shuffle(self.test_image_list)
 
         # 获得图片宽高和字符长度基本信息
-        label, captcha_array = self.gen_captcha_text_image()
+        label, captcha_array = self.get_captcha_text_image()
 
         captcha_shape = captcha_array.shape
         captcha_shape_len = len(captcha_shape)
@@ -45,18 +45,18 @@ class TestBatch(CNN):
         print("-->图片尺寸: {} X {}".format(image_height, image_width))
         print("-->验证码长度: {}".format(self.max_captcha))
         print("-->验证码共{}类 {}".format(self.char_set_len, char_set))
-        print("-->使用测试集为 {}".format(img_path))
+        print("-->使用测试集为 {}".format(test_image_dir))
 
-    def gen_captcha_text_image(self):
+    def get_captcha_text_image(self):
         """
         返回一个验证码的array形式和对应的字符串标签
         :return:tuple (str, numpy.array)
         """
-        img_name = random.choice(self.img_list)
+        img_name = random.choice(self.test_image_list)
         # 标签
         label = img_name.split("_")[0]
         # 文件
-        img_file = os.path.join(self.img_path, img_name)
+        img_file = os.path.join(self.test_image_dir, img_name)
         captcha_image = Image.open(img_file)
         captcha_array = np.array(captcha_image)  # 向量化
 
@@ -72,8 +72,7 @@ class TestBatch(CNN):
             saver.restore(sess, self.model_save_dir)
             s = time.time()
             for i in range(test_batch_size):
-                # test_text, test_image = gen_special_num_image(i)
-                test_text, test_image = self.gen_captcha_text_image()  # 随机
+                test_text, test_image = self.get_captcha_text_image()  # 随机
                 test_image = self.convert2gray(test_image)
                 test_image = test_image.flatten() / 255
 
