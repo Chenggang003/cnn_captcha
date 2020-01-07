@@ -15,7 +15,7 @@ class TestError(Exception):
 
 
 class TestBatch(CNN):
-    def __init__(self, img_path, char_set, model_save_dir, total):
+    def __init__(self, img_path, char_set, model_save_dir, test_batch_size):
         # 模型路径
         self.model_save_dir = model_save_dir
         # 打乱文件顺序
@@ -39,7 +39,7 @@ class TestBatch(CNN):
 
         # 初始化变量
         super(TestBatch, self).__init__(image_height, image_width, len(label), char_set, model_save_dir)
-        self.total = total
+        self.test_batch_size = test_batch_size
 
         # 相关信息打印
         print("-->图片尺寸: {} X {}".format(image_height, image_width))
@@ -64,14 +64,14 @@ class TestBatch(CNN):
 
     def test_batch(self):
         y_predict = self.model()
-        total = self.total
+        test_batch_size = self.test_batch_size
         right = 0
 
         saver = tf.train.Saver()
         with tf.Session() as sess:
             saver.restore(sess, self.model_save_dir)
             s = time.time()
-            for i in range(total):
+            for i in range(test_batch_size):
                 # test_text, test_image = gen_special_num_image(i)
                 test_text, test_image = self.gen_captcha_text_image()  # 随机
                 test_image = self.convert2gray(test_image)
@@ -89,9 +89,9 @@ class TestBatch(CNN):
                 else:
                     pass
             e = time.time()
-        rate = str(right/total * 100) + "%"
-        print("测试结果： {}/{}".format(right, total))
-        print("{}个样本识别耗时{}秒，准确率{}".format(total, e-s, rate))
+        rate = str(right/test_batch_size * 100) + "%"
+        print("测试结果： {}/{}".format(right, test_batch_size))
+        print("{}个样本识别耗时{}秒，准确率{}".format(test_batch_size, e-s, rate))
 
 
 def main():
@@ -100,6 +100,7 @@ def main():
 
     test_image_dir = app_conf["test_image_dir"]
     model_save_dir = app_conf["model_save_dir"]
+    test_batch_size = app_conf["test_batch_size"]
 
     use_labels_json_file = app_conf['use_labels_json_file']
 
@@ -109,8 +110,7 @@ def main():
     else:
         char_set = app_conf["char_set"]
 
-    total = 100
-    tb = TestBatch(test_image_dir, char_set, model_save_dir, total)
+    tb = TestBatch(test_image_dir, char_set, model_save_dir, test_batch_size)
     tb.test_batch()
 
 

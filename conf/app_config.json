@@ -10,7 +10,6 @@
   "image_suffix": "png",
   "char_set": "37XV6FD9G8A4HYSCTUNEMKQBWJR2PZ5",
   "use_labels_json_file": false,
-  "remote_url": "http://127.0.0.1:6100/captcha/",
   "cycle_stop": 20000,
   "acc_stop": 0.99,
   "cycle_save": 200,

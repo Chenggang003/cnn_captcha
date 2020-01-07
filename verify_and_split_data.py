@@ -1,6 +1,5 @@
 """
 验证图片尺寸和分离测试集（5%）和训练集（95%）
-初始化的时候使用，有新的图片后，可以把图片放在new目录里面使用。
 """
 import json
 
@@ -67,7 +66,7 @@ def verify(origin_dir, real_width, real_height, image_suffix):
     return bad_img
 
 
-def split(origin_dir, train_dir, test_dir, bad_imgs):
+def split(origin_dir, train_dir, test_dir, bad_images):
     """
     分离训练集和测试集
     :return:
@@ -80,10 +79,10 @@ def split(origin_dir, train_dir, test_dir, bad_imgs):
 
     # 图片名称列表和数量
     img_list = os.listdir(origin_dir)
-    for img in bad_imgs:
+    for img in bad_images:
         img_list.remove(img)
     total_count = len(img_list)
-    print("共分配{}张图片到训练集和测试集，其中{}张为异常留在原始目录".format(total_count, len(bad_imgs)))
+    print("共分配{}张图片到训练集和测试集，其中{}张为异常留在原始目录".format(total_count, len(bad_images)))
 
     # 创建文件夹
     if not os.path.exists(train_dir):
@@ -93,7 +92,7 @@ def split(origin_dir, train_dir, test_dir, bad_imgs):
         os.mkdir(test_dir)
 
     # 测试集
-    test_count = int(total_count*0.05)
+    test_count = int(total_count * 0.05)
     test_set = set()
     for i in range(test_count):
         while True:
@@ -130,7 +129,6 @@ def main():
 
     # 图片路径
     origin_dir = app_conf["origin_image_dir"]
-    new_dir = app_conf["new_image_dir"]
     train_dir = app_conf["train_image_dir"]
     test_dir = app_conf["test_image_dir"]
     # 图片尺寸
@@ -139,13 +137,12 @@ def main():
     # 图片后缀
     image_suffix = app_conf["image_suffix"]
 
-    for image_dir in [origin_dir, new_dir]:
-        print(">>> 开始校验目录：[{}]".format(image_dir))
-        bad_images_info = verify(image_dir, real_width, real_height, image_suffix)
-        bad_imgs = []
-        for info in bad_images_info:
-            bad_imgs.append(info[1])
-        split(image_dir, train_dir, test_dir, bad_imgs)
+    print(">>> 开始校验目录：[{}]".format(origin_dir))
+    bad_images_info = verify(origin_dir, real_width, real_height, image_suffix)
+    bad_images = []
+    for info in bad_images_info:
+        bad_images.append(info[1])
+    split(origin_dir, train_dir, test_dir, bad_images)
 
 
 if __name__ == '__main__':

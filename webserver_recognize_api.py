@@ -89,7 +89,7 @@ def recognize_base64():
 
 @app.route('/recognize/file', methods=['POST'])
 def recognize_file():
-    if request.method == 'POST' and request.path.get('image_file'):
+    if request.method == 'POST' and request.files.get('image_file'):
         timec = str(time.time()).replace(".", "")
         file = request.files.get('image_file')
         img = file.read()
