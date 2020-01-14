@@ -33,9 +33,9 @@ def verify(origin_dir, real_width, real_height, image_suffix):
     for index, img_name in enumerate(img_list):
         file_path = os.path.join(origin_dir, img_name)
         # 过滤图片不正确的后缀
-        if not img_name.endswith(image_suffix):
-            bad_img.append((index, img_name, "文件后缀不正确"))
-            continue
+        # if not img_name.endswith(image_suffix):
+        #     bad_img.append((index, img_name, "文件后缀不正确"))
+        #     continue
 
         # 过滤图片标签不标准的情况
         prefix, posfix = img_name.split("_")
@@ -107,17 +107,19 @@ def split(origin_dir, train_dir, test_dir, bad_images):
     test_list = list(test_set)
     print("测试集数量为：{}".format(len(test_list)))
     for file_name in test_list:
-        src = os.path.join(origin_dir, file_name)
-        dst = os.path.join(test_dir, file_name)
-        shutil.move(src, dst)
+        src = Image.open(os.path.join(origin_dir, file_name))
+        file_name_no_image_suffix = file_name.split(".")[0]
+        dst = src.resize((150, 50), Image.ANTIALIAS)
+        dst.save(test_dir+file_name_no_image_suffix+".png", "png")
 
     # 训练集
     train_list = img_list
     print("训练集数量为：{}".format(len(train_list)))
     for file_name in train_list:
-        src = os.path.join(origin_dir, file_name)
-        dst = os.path.join(train_dir, file_name)
-        shutil.move(src, dst)
+        src = Image.open(os.path.join(origin_dir, file_name))
+        file_name_no_image_suffix = file_name.split(".")[0]
+        dst = src.resize((150, 50), Image.ANTIALIAS)
+        dst.save(test_dir + file_name_no_image_suffix + ".png", "png")
 
     if os.listdir(origin_dir) == 0:
         print("migration done")
