@@ -7,6 +7,7 @@ import os
 import time
 import base64
 
+
 def main():
     with open("conf/app_config.json", "r") as f:
         app_conf = json.load(f)

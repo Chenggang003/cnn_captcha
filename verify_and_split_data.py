@@ -51,10 +51,10 @@ def verify(origin_dir, real_width, real_height, image_suffix):
             continue
 
         # 图片尺寸有异常
-        if real_size == img.size:
-            print("{} pass".format(index), end='\r')
-        else:
-            bad_img.append((index, img_name, "图片尺寸异常为：{}".format(img.size)))
+        # if real_size == img.size:
+        #     print("{} pass".format(index), end='\r')
+        # else:
+        #     bad_img.append((index, img_name, "图片尺寸异常为：{}".format(img.size)))
 
     print("====以下{}张图片有异常====".format(len(bad_img)))
     if bad_img:
@@ -119,7 +119,7 @@ def split(origin_dir, train_dir, test_dir, bad_images):
         src = Image.open(os.path.join(origin_dir, file_name))
         file_name_no_image_suffix = file_name.split(".")[0]
         dst = src.resize((150, 50), Image.ANTIALIAS)
-        dst.save(test_dir + file_name_no_image_suffix + ".png", "png")
+        dst.save(train_dir + file_name_no_image_suffix + ".png", "png")
 
     if os.listdir(origin_dir) == 0:
         print("migration done")

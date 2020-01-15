@@ -160,7 +160,7 @@ class TrainModel(CNN):
                 # 梯度下降训练
                 _, cost_ = sess.run([optimizer, cost],
                                     feed_dict={self.X: batch_x, self.Y: batch_y, self.keep_prob: 0.75})
-                if step % 5 == 0:
+                if step % 10 == 0:
                     # 基于训练集的测试
                     batch_x_test, batch_y_test = self.get_batch(i)
                     acc_char = sess.run(accuracy_char_count,

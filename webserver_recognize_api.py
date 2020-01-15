@@ -44,7 +44,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 R_4 = Recognizer(image_height, image_width, 4, char_set, "model4/model4")
 R_5 = Recognizer(image_height, image_width, 5, char_set, "model5/model5")
 
-
 def response_headers(content):
     resp = Response(content)
     resp.headers['Access-Control-Allow-Origin'] = '*'
@@ -61,6 +60,7 @@ def recognize_base64():
         image = BytesIO(img_b64decode)
         img = Image.open(image, mode="r")
         print("接收图片尺寸: {}".format(img.size))
+        img = img.resize((150, 50), Image.ANTIALIAS)
         s = time.time()
         captcha_length = get_data['captcha_length']
         if captcha_length == 4:
@@ -99,6 +99,7 @@ def recognize_file():
         img = BytesIO(img)
         img = Image.open(img, mode="r")
         print("接收图片尺寸: {}".format(img.size))
+        img = img.resize((150, 50), Image.ANTIALIAS)
         s = time.time()
         if captcha_length == 4:
             value = R_4.rec_image(img)
