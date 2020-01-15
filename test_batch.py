@@ -98,7 +98,6 @@ def main():
         app_conf = json.load(f)
 
     test_image_dir = app_conf["test_image_dir"]
-    model_save_dir = app_conf["model_save_dir"]
     test_batch_size = app_conf["test_batch_size"]
 
     use_labels_json_file = app_conf['use_labels_json_file']
@@ -109,7 +108,8 @@ def main():
     else:
         char_set = app_conf["char_set"]
 
-    tb = TestBatch(test_image_dir, char_set, model_save_dir, test_batch_size)
+    # tb = TestBatch(test_image_dir, char_set, "model4/model4", test_batch_size)
+    tb = TestBatch(test_image_dir, char_set, "model5/model5", test_batch_size)
     tb.test_batch()
 
 
